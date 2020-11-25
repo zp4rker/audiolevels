@@ -4,8 +4,8 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
+import com.zp4rker.audiolevels.AUDIO_DB
 import com.zp4rker.audiolevels.PLAYER
-import com.zp4rker.audiolevels.storage.audio.TrackBean
 import com.zp4rker.disbot.API
 import com.zp4rker.disbot.extenstions.embed
 import net.dv8tion.jda.api.entities.TextChannel
@@ -18,7 +18,6 @@ import java.util.concurrent.LinkedBlockingQueue
 class TrackHandler : AudioEventAdapter() {
 
     private val queue = LinkedBlockingQueue<TrackData>()
-    private val db = TrackBean()
 
     init {
         PLAYER.addListener(this)
@@ -56,7 +55,7 @@ class TrackHandler : AudioEventAdapter() {
             }
         }).queue()
 
-        db.remove(track.info.uri)
+        AUDIO_DB.remove(track.info.uri)
 
         if (endReason.mayStartNext) nextTrack()
     }
@@ -65,7 +64,7 @@ class TrackHandler : AudioEventAdapter() {
         val data = TrackData(track, channel, requester)
         queue.offer(data)
         PLAYER.startTrack(track, true)
-        db.add(data)
+        AUDIO_DB.add(data)
     }
 
     fun nextTrack() {
@@ -81,7 +80,7 @@ class TrackHandler : AudioEventAdapter() {
 
     fun clearQueue() {
         queue.clear()
-        db.removeAll()
+        AUDIO_DB.removeAll()
     }
 
     var volume: Int
