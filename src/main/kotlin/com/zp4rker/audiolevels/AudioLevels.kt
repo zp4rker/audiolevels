@@ -32,13 +32,12 @@ lateinit var HANDLER: AudioHandler
 val AUDIO_DB = TrackBean()
 val LEVEL_DB = UserBean()
 
-fun main() {
-    println("uhhh hello?")
+fun main(args: Array<String>) {
     bot {
         name = "AudioLevels"
         version = Bot::class.java.`package`.implementationVersion
 
-        token = System.getenv("AL_TOKEN")
+        token = args[0]
         prefix = "!"
 
         intents = GatewayIntent.ALL_INTENTS
