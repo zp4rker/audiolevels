@@ -90,7 +90,7 @@ class UserBean {
 
     private fun getConnection(): Connection {
         Class.forName("com.mysql.cj.jdbc.Driver")
-        return DriverManager.getConnection("jdbc:mysql://sql12.freemysqlhosting.net/sql12378431", "sql12378431", "9IrilMrEsi")
+        return DriverManager.getConnection("jdbc:mysql://au1.zp4rker.com/audiolevels", "audiolevels", "ifyoureadthisyouareawesome")
     }
 
     data class UserData(var user: Long = 0, var xp: Long = 0)
